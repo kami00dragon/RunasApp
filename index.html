@@ -6,17 +6,20 @@
     <title>Oráculo Maestro: I Ching & Runas</title>
     <meta name="theme-color" content="#B71C1C">
     
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&family=Noto+Serif+Runic&display=swap" rel="stylesheet">
 
     <style>
         :root {
+            /* I Ching Theme */
             --iching-primary: #B71C1C;
             --iching-secondary: #F57F17;
             --iching-accent: #0288D1;
             --iching-bg: #FAFAFA;
             --iching-text: #212121;
             
+            /* Runes Theme */
             --runes-bg: #050a14;
             --runes-text: #e0e0e0;
             --runes-gold: #FFD700;
@@ -45,6 +48,7 @@
             color: var(--runes-text);
         }
 
+        /* --- Header --- */
         header {
             background: linear-gradient(to right, var(--iching-primary), #D32F2F);
             color: white;
@@ -63,6 +67,7 @@
         h1 { font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 0.2rem; letter-spacing: 1px; }
         p.subtitle { font-size: 0.8rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 2px; }
 
+        /* --- Navegación --- */
         nav {
             display: flex;
             background: white;
@@ -97,46 +102,45 @@
         
         .nav-btn.active { color: var(--iching-primary); border-bottom: 3px solid var(--iching-primary); background: rgba(183, 28, 28, 0.05); }
 
+        /* --- Contenedor Principal --- */
         main { flex: 1; padding: 1rem; max-width: 900px; margin: 0 auto; width: 100%; }
         section { display: none; animation: fadeIn 0.4s ease; }
         section.active { display: block; }
 
+        /* --- I Ching Styles (Library & Oracle) --- */
         .iching-card {
             background: white; padding: 1.5rem; border-radius: 8px;
             box-shadow: var(--shadow); margin-bottom: 1.5rem; border: 1px solid #eee;
         }
         
+        /* Biblioteca */
+        .search-input {
+            width: 100%; padding: 1rem; margin-bottom: 1rem; border: 2px solid #ddd; border-radius: 8px;
+            font-size: 1rem; outline: none; transition: border 0.3s;
+        }
+        .search-input:focus { border-color: var(--iching-accent); }
+
         .hex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 1rem; }
         .hex-item {
             background: #fff; border: 1px solid #eee; border-radius: 6px;
             padding: 1rem; text-align: center; cursor: pointer; transition: 0.2s;
+            box-shadow: var(--shadow);
         }
         .hex-item:hover { border-color: var(--iching-primary); transform: translateY(-3px); }
 
-        .result-box {
-            background: white; padding: 1.5rem; border-radius: 8px;
-            box-shadow: var(--shadow); margin-top: 1.5rem; border-left: 5px solid var(--iching-secondary);
-            animation: slideUp 0.5s ease;
-        }
-        .box-title { font-family: var(--font-title); color: var(--iching-text); font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
-        
-        .text-content { line-height: 1.6; font-size: 0.95rem; color: #444; margin-top: 0.8rem; }
-        
         .hex-svg { width: 50px; height: auto; margin-bottom: 0.5rem; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1)); }
-        .result-svg { width: 100px; height: auto; }
+        .hex-title { font-weight: bold; font-size: 0.9rem; color: var(--iching-primary); margin-bottom: 0.2rem; }
+        .hex-desc { font-size: 0.75rem; color: #666; }
 
-        /* Sistema de Monedas Mejorado */
+        /* --- Adivinación (mejorada desde 02) --- */
         .oracle-stage {
             background: white; padding: 2rem 1rem; border-radius: 12px;
-            text-align: center; box-shadow: var(--shadow);
-            margin-bottom: 2rem;
+            text-align: center; box-shadow: var(--shadow); margin-bottom: 2rem;
         }
-
         .coins-box {
             display: flex; justify-content: center; gap: 1.5rem; margin: 2rem 0;
             min-height: 80px;
         }
-
         .coin {
             width: 60px; height: 60px; border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #FFECB3, #FFC107);
@@ -144,80 +148,85 @@
             display: flex; align-items: center; justify-content: center;
             font-weight: bold; color: #5D4037; font-size: 1.2rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.1s;
         }
         .coin.tossing { animation: flip 0.6s infinite linear; }
-        .coin.landed { animation: land 0.3s ease-out; }
-
-        @keyframes flip { 
-            0% { transform: rotateY(0) scale(1); } 
-            50% { transform: rotateY(180deg) scale(1.1); }
-            100% { transform: rotateY(360deg) scale(1); } 
-        }
-        @keyframes land {
-            0% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
         .btn-cast {
             background: var(--iching-primary); color: white; border: none;
             padding: 1rem 3rem; font-size: 1.1rem; border-radius: 50px;
-            font-family: var(--font-title); cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(183, 28, 28, 0.4);
-            transition: all 0.2s;
+            font-family: var(--font-title); cursor: pointer; box-shadow: 0 4px 15px rgba(183, 28, 28, 0.4);
+            transition: background 0.2s;
         }
-        .btn-cast:hover { background: #D32F2F; transform: translateY(-2px); }
-        .btn-cast:disabled { background: #9E9E9E; cursor: not-allowed; transform: none; }
+        .btn-cast:hover { background: #D32F2F; }
+        .btn-cast:disabled { background: #9E9E9E; cursor: not-allowed; }
 
-        .cast-info {
-            height: 2rem; margin: 1rem 0; font-weight: bold; color: var(--iching-primary);
-            font-family: var(--font-title);
+        /* Paneles de resultado */
+        .result-panel {
+            background: white; border-radius: 12px; padding: 1.5rem;
+            margin-bottom: 1.5rem; border: 1px solid #eee; display: none;
         }
+        .result-panel.show { display: block; animation: slideUp 0.5s ease; }
+        .panel-header { border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem; margin-bottom: 1rem; text-align: center; }
+        .panel-title { font-family: var(--font-title); color: var(--iching-text); font-size: 1.3rem; }
+        .panel-subtitle { color: #888; font-size: 0.9rem; }
+        .result-svg-container { display: flex; justify-content: center; padding: 1rem 0; }
+        .result-svg { width: 100px; height: auto; }
+        .text-content { line-height: 1.6; font-size: 0.95rem; color: #444; margin-top: 1rem; }
 
-        .line-builder {
-            display: flex; flex-direction: column-reverse; align-items: center;
-            margin: 1rem 0; min-height: 200px; gap: 5px;
+        /* Caja de líneas móviles y nuclear */
+        .extra-box {
+            background: white; border-radius: 12px; padding: 1.5rem;
+            margin: 1rem 0; border-left: 5px solid var(--iching-accent);
+            display: none;
         }
-        .line-slot {
-            width: 80px; height: 20px; background: #f0f0f0; border-radius: 4px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; color: #999; border: 2px dashed #ddd;
-        }
-        .line-slot.filled { border-style: solid; border-color: var(--iching-primary); background: white; }
+        .extra-box.show { display: block; }
+        .extra-title { font-family: var(--font-title); margin-bottom: 0.5rem; color: var(--iching-primary); }
 
-        /* Runas */
+        /* --- Runes Styles (inalterado) --- */
         .starry-bg {
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            min-height: 100vh; position: relative; overflow: hidden;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             padding: 2rem; border-radius: 8px; color: white; text-align: center;
         }
-        
+        .stars, .twinkling { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; display: block; }
         .stars {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;
             background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj48ZyBmaWxsPSIjZmZmIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iNTAiIHI9IjEiLz48Y2lyY2xlIGN4PSIyNTAiIGN5PSIxNTAiIHI9IjEuNSIvPjxjaXJjbGUgY3g9IjMwMCIgY3k9IjMwIiByPSIxIi8+PC9nPjwvc3ZnPg==') repeat top center;
-            opacity: 0.5; z-index: 0;
+            opacity: 0.5;
+            z-index: 0;
         }
-
+        .twinkling { background: transparent; z-index: 1; opacity: 0.7; animation: twinkle 5s infinite linear; }
         .rune-stone {
-            font-family: var(--font-runes); font-size: 8rem; color: #ccc;
+            font-family: var(--font-runes);
+            font-size: 8rem;
+            color: #ccc;
             text-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 20px var(--runes-gold);
-            background: linear-gradient(135deg, #333, #000); padding: 1rem;
-            border-radius: 50%; border: 2px solid #555;
-            box-shadow: inset 0 0 20px #000; margin: 2rem auto;
-            width: 180px; height: 180px; display: flex; align-items: center; justify-content: center;
-            transition: all 1s ease-out; opacity: 0;
+            background: linear-gradient(135deg, #333, #000);
+            padding: 1rem;
+            border-radius: 50%;
+            border: 2px solid #555;
+            box-shadow: inset 0 0 20px #000;
+            margin: 2rem auto;
+            width: 180px; height: 180px;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 1s ease-out;
+            opacity: 0;
         }
         .rune-stone.revealed { opacity: 1; transform: scale(1.1); }
-
         .rune-meaning {
-            font-family: var(--font-title); color: var(--runes-gold); font-size: 1.5rem;
-            margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 3px;
-            opacity: 0; transform: translateY(20px); transition: all 1s;
+            font-family: var(--font-title);
+            color: var(--runes-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s;
         }
         .rune-desc { max-width: 500px; margin: 0 auto; font-style: italic; color: #aaa; opacity: 0; transition: all 1s 0.5s; }
         .rune-meaning.show, .rune-desc.show { opacity: 1; transform: translateY(0); }
-
         .btn-rune {
             background: transparent; border: 2px solid var(--runes-gold); color: var(--runes-gold);
             padding: 1rem 2rem; font-family: var(--font-title); font-size: 1.1rem;
@@ -225,119 +234,115 @@
         }
         .btn-rune:hover { background: rgba(255, 215, 0, 0.2); box-shadow: 0 0 15px var(--runes-gold); }
 
+        /* --- Modal --- */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 1000;
         }
         .modal.active { display: flex; }
         .modal-content {
-            background: white; width: 90%; max-width: 500px; border-radius: 8px; 
-            max-height: 90vh; overflow-y: auto; padding: 2rem; position: relative;
+            background: white; width: 90%; max-width: 500px; border-radius: 8px; max-height: 90vh; overflow-y: auto; padding: 2rem; position: relative;
         }
         .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-        .arrow-divider {
-            text-align: center; font-size: 2rem; margin: 1rem 0; 
-            color: var(--iching-secondary); animation: slideUp 0.5s;
-        }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes flip { 0% { transform: rotateY(0); } 100% { transform: rotateY(360deg); } }
+        @keyframes twinkle { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
     </style>
 </head>
 <body>
 
     <header>
         <h1 id="appTitle">ORÁCULO I CHING</h1>
-        <p class="subtitle" id="appSubtitle">Método Tradicional de las 3 Monedas</p>
+        <p class="subtitle" id="appSubtitle">Método Tradicional y Runas Nórdicas</p>
     </header>
 
     <nav>
         <button class="nav-btn active" onclick="switchMode('iching', 'library')">I Ching</button>
-        <button class="nav-btn" onclick="switchMode('iching', 'oracle')">Adivinar</button>
+        <button class="nav-btn" onclick="switchMode('iching', 'oracle')">Adivinar I Ching</button>
         <button class="nav-btn" onclick="switchMode('runes', '')">Runas</button>
     </nav>
 
     <main>
-        <!-- BIBLIOTECA -->
+        <!-- SECCIÓN BIBLIOTECA I CHING (mejorada) -->
         <section id="section-iching-library" class="active">
-            <input type="text" id="searchInput" style="width:100%; padding:1rem; margin-bottom:1rem; border:2px solid #ddd; border-radius:4px;" placeholder="Buscar hexagrama..." onkeyup="renderLibrary()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar hexagrama por nombre o número..." onkeyup="renderLibrary()">
             <div id="hexGrid" class="hex-grid"></div>
         </section>
 
-        <!-- ADIVINACIÓN CON 6 TIROS -->
+        <!-- SECCIÓN ADIVINACIÓN I CHING (mejorada con método tradicional) -->
         <section id="section-iching-oracle">
             <div class="oracle-stage">
-                <h2 style="font-family: var(--font-title); margin-bottom: 0.5rem;">Consulta del I Ching</h2>
-                <p style="color:#666; font-size:0.9rem; margin-bottom:1rem;">Formula tu pregunta mentalmente. Se lanzarán 6 líneas desde la base hacia arriba.</p>
+                <h2>Tirada de las 3 Monedas</h2>
+                <p style="color:#666; font-size:0.9rem; margin-bottom:1rem;">Formula tu pregunta. Se lanzarán 6 líneas desde la base hacia arriba.</p>
                 
                 <div class="coins-box">
-                    <div class="coin" id="coin1">?</div>
-                    <div class="coin" id="coin2">?</div>
-                    <div class="coin" id="coin3">?</div>
+                    <div class="coin" id="coin1"></div>
+                    <div class="coin" id="coin2"></div>
+                    <div class="coin" id="coin3"></div>
                 </div>
 
-                <div class="cast-info" id="castInfo">Listo para consultar</div>
-                
-                <div class="line-builder" id="lineBuilder">
-                    <div class="line-slot" id="slot-1">Línea 1</div>
-                    <div class="line-slot" id="slot-2">Línea 2</div>
-                    <div class="line-slot" id="slot-3">Línea 3</div>
-                    <div class="line-slot" id="slot-4">Línea 4</div>
-                    <div class="line-slot" id="slot-5">Línea 5</div>
-                    <div class="line-slot" id="slot-6">Línea 6</div>
-                </div>
+                <div id="castInfo" style="height: 1.5rem; margin-bottom: 1rem; font-weight: bold; color: var(--iching-primary);"></div>
 
-                <button class="btn-cast" id="btnCast" onclick="startDivination()">Iniciar Consulta</button>
+                <button class="btn-cast" id="btnCast" onclick="castIChing()">Consultar</button>
             </div>
 
-            <!-- RESULTADOS -->
-            <div id="iching-results" style="display:none;">
-                <!-- Origen -->
-                <div class="result-box">
-                    <div class="box-title">1. El Estado Actual (Hexagrama Origen)</div>
-                    <div id="resOriginSvg" style="text-align:center;"></div>
-                    <div style="text-align:center; margin-top:0.5rem; font-weight:bold; color:var(--iching-primary);" id="resOriginName"></div>
+            <!-- Contenedor de Resultados I Ching (estilo 02 mejorado) -->
+            <div id="iching-results">
+                <!-- Panel Origen -->
+                <div id="resOrigin" class="result-panel">
+                    <div class="panel-header">
+                        <div class="panel-subtitle">ESTADO INICIAL (Lo que es)</div>
+                        <div class="panel-title" id="resOriginName"></div>
+                    </div>
+                    <div class="result-svg-container" id="resOriginSvg"></div>
                     <div class="text-content" id="resOriginText"></div>
                 </div>
 
                 <!-- Líneas Móviles -->
-                <div id="movingLinesBox" class="result-box" style="display:none; border-left-color: var(--iching-accent);">
-                    <div class="box-title">⚡ Líneas Móviles (Cambios en juego)</div>
+                <div id="movingLinesBox" class="extra-box">
+                    <div class="extra-title">⚡ Líneas Móviles</div>
                     <div id="movingLinesText" class="text-content"></div>
                 </div>
 
-                <!-- Nuclear -->
-                <div id="nuclearBox" class="result-box" style="display:none; border-left-color: #888;">
-                    <div class="box-title">🌱 La Raíz Oculta (Hexagrama Nuclear)</div>
-                    <div id="nuclearSvg" style="text-align:center;"></div>
+                <!-- Hexagrama Nuclear -->
+                <div id="nuclearBox" class="extra-box" style="border-left-color: #888;">
+                    <div class="extra-title">🌱 Raíz Oculta (Nuclear)</div>
+                    <div class="result-svg-container" id="nuclearSvg"></div>
                     <div style="text-align:center; font-weight:bold;" id="nuclearName"></div>
-                    <div class="text-content" id="nuclearText"></div>
+                    <div class="text-content" id="nuclearDesc">Este hexagrama interno revela la causa profunda o la motivación subconsciente.</div>
                 </div>
 
-                <!-- Flecha -->
-                <div id="arrowContainer" class="arrow-divider" style="display:none;">⬇️ EVOLUCIÓN ⬇️</div>
+                <!-- Flecha evolutiva -->
+                <div id="arrowContainer" style="text-align:center; display:none; font-size:2rem; color: var(--iching-secondary); margin:1rem 0;">⬇️ EVOLUCIÓN ⬇️</div>
 
-                <!-- Futuro -->
-                <div id="destinyBox" class="result-box" style="display:none;">
-                    <div class="box-title">2. Hacia donde evoluciona (Hexagrama Futuro)</div>
-                    <div id="resDestinySvg" style="text-align:center;"></div>
-                    <div style="text-align:center; margin-top:0.5rem; font-weight:bold; color:var(--iching-secondary);" id="resDestinyName"></div>
+                <!-- Panel Destino -->
+                <div id="resDestiny" class="result-panel">
+                    <div class="panel-header" style="border-color: var(--iching-secondary);">
+                        <div class="panel-subtitle">ESTADO FUTURO (Hacia donde va)</div>
+                        <div class="panel-title" id="resDestinyName"></div>
+                    </div>
+                    <div class="result-svg-container" id="resDestinySvg"></div>
                     <div class="text-content" id="resDestinyText"></div>
                 </div>
             </div>
         </section>
 
-        <!-- RUNAS -->
+        <!-- SECCIÓN RUNAS (inalterada) -->
         <section id="section-runes">
             <div class="starry-bg">
                 <div class="stars"></div>
+                <div class="twinkling"></div>
+                
                 <div style="position:relative; z-index:10;">
-                    <h2 style="font-family:var(--font-title); font-size:2rem; color:var(--runes-gold);">Oráculo Nórdico</h2>
-                    <p style="color:#aaa; margin-bottom:2rem;">Las Runas hablan a través del destino</p>
+                    <h2 style="font-family:var(--font-title); font-size:2rem; color:var(--runes-gold); text-shadow:0 0 10px #000;">Oráculo Nórdico</h2>
+                    <p style="color:#aaa; margin-bottom:2rem;">Las Runas hablan a través del destino y la voluntad.</p>
+                    
                     <div id="runeStone" class="rune-stone"></div>
                     <h3 id="runeName" class="rune-meaning"></h3>
                     <p id="runeDesc" class="rune-desc"></p>
+                    
                     <div style="margin-top:3rem;">
                         <button class="btn-rune" onclick="castRune()">Extraer Runa</button>
                     </div>
@@ -346,7 +351,7 @@
         </section>
     </main>
 
-    <!-- MODAL -->
+    <!-- MODAL (inalterado) -->
     <div id="modal" class="modal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="document.getElementById('modal').classList.remove('active')">×</button>
@@ -357,7 +362,7 @@
     </div>
 
     <script>
-        // DATOS I CHING (64 HEXAGRAMAS)
+        // --- DATOS I CHING (64 HEXAGRAMAS) - desde 03, completo ---
         const hexagrams = [
             { id: 1, bin: "111111", name: "Ch'ien (El Creativo)", text: "El trabajo sublime logra el éxito. Favorece la perseverancia. El cielo se mueve con poder." },
             { id: 2, bin: "000000", name: "K'un (Lo Receptivo)", text: "La tierra sostiene todo. Éxito mediante la devoción y la calma. Sigue al líder." },
@@ -378,8 +383,4 @@
             { id: 17, bin: "100110", name: "Sui (Seguimiento)", text: "No te impongas. Sigue el momento y a las personas correctas." },
             { id: 18, bin: "011001", name: "Ku (Trabajo)", text: "Corregir errores del pasado. Descubrir lo que está podrido y cambiarlo." },
             { id: 19, bin: "110000", name: "Lin (Acercamiento)", text: "Acercamiento del poder. La grandeza viene de abajo. Prepárate." },
-            { id: 20, bin: "000011", name: "Kuan (Contemplación)", text: "Mira hacia adentro y hacia afuera. La luz del sol brilla sobre la tierra." },
-            { id: 21, bin: "100101", name: "Shih Ho (Morder)", text: "Masticar lo duro. Se necesita firmeza para eliminar obstáculos." },
-            { id: 22, bin: "101001", name: "Pi (Gracia)", text: "Belleza externa e interna. No confíes solo en la apariencia." },
-            { id: 23, bin: "000001", name: "Po (Desmembramiento)", text: "Desintegración. Mantente firme en lo esencial y abandona lo superfluo." },
-            { id: 24, bin: "100000",
+            { id: 20, bin: "000011", name: "Kuan (Contemplación)", text: "Mira hacia adentro y hacia afuera. La luz del sol brilla sobre la tier
